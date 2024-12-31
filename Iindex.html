@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metropolitan International University - Welcome 2025</title>
+  <!-- Include Google Fonts for Professional Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Include Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Include Confetti.js for Celebration -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333; /* Dark gray for text */
+      font-family: 'Roboto', sans-serif; /* Professional font */
+      overflow: hidden;
+      background: #000; /* Black background for stars */
+    }
+
+    canvas#stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .countdown {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .countdown h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: #003366; /* Dark blue for university name */
+      font-weight: 700;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    .countdown h2 {
+      font-size: 1.8rem;
+      margin: 10px 0;
+      color: #555; /* Medium gray for subheading */
+      font-weight: 400;
+      animation: slideIn 2s ease-in-out;
+    }
+
+    .countdown p {
+      font-size: 1.2rem;
+      margin: 10px 0;
+      color: #777; /* Light gray for additional text */
+      animation: fadeIn 2.5s ease-in-out;
+    }
+
+    .quote {
+      font-size: 1.2rem;
+      font-style: italic;
+      margin: 20px 0;
+      color: #555; /* Medium gray for quote */
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .timer {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .timer div {
+      text-align: center;
+      background: #003366; /* Dark blue background */
+      padding: 20px;
+      border-radius: 10px;
+      width: 100px;
+      color: #fff; /* White text */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timer div.animated {
+      animation: pulse 0.5s ease-in-out;
+    }
+
+    .timer span {
+      font-size: 2rem;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .timer p {
+      font-size: 1rem;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .celebration {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .celebration h1 {
+      font-size: 3rem;
+      margin: 0;
+      color: #003366; /* Dark blue for celebration text */
+      font-weight: 700;
+      animation: zoomIn 1.5s infinite alternate;
+    }
+
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .social-media {
+      margin-top: 20px;
+    }
+
+    .social-media a {
+      color: #003366; /* Dark blue for icons */
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-media a:hover {
+      color: #00509e; /* Lighter blue on hover */
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes zoomIn {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas for Stars -->
+  <canvas id="stars"></canvas>
+
+  <div class="countdown">
+    <h1>Metropolitan International University</h1>
+    <h2>Welcome to 2025</h2>
+    <p class="quote">"The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt</p>
+    <p>Countdown to the Future</p>
+    <div class="timer">
+      <div id="days-box">
+        <span id="days">00</span>
+        <p><i class="fas fa-calendar-day"></i> Days</p>
+      </div>
+      <div id="hours-box">
+        <span id="hours">00</span>
+        <p><i class="fas fa-clock"></i> Hours</p>
+      </div>
+      <div id="minutes-box">
+        <span id="minutes">00</span>
+        <p><i class="fas fa-hourglass-half"></i> Minutes</p>
+      </div>
+      <div id="seconds-box">
+        <span id="seconds">00</span>
+        <p><i class="fas fa-stopwatch"></i> Seconds</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="celebration">
+    <h1>Happy New Year 2025!</h1>
+    <div class="social-media">
+      <a href="#" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" title="Share on LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </div>
+
+  <div class="confetti"></div>
+
+  <!-- Audio for Celebration -->
+  <audio id="celebration-audio" src="celebration-sound.mp3" preload="auto"></audio>
+
+  <script>
+    // Function to create stars
+    function createStars() {
+      const canvas = document.getElementById('stars');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const stars = [];
+      const starCount = 1000; // Reduced number of stars for performance
+
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 1.5,
+          opacity: Math.random(),
+          speed: Math.random() * 0.5,
+        });
+      }
+
+      function drawStars() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach((star) => {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+          ctx.fill();
+          star.y += star.speed;
+          if (star.y > canvas.height) {
+            star.y = 0;
+          }
+        });
+        requestAnimationFrame(drawStars);
+      }
+
+      drawStars();
+    }
+
+    // Function to trigger confetti
+    function triggerConfetti() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Function to animate countdown boxes
+    function animateCountdownBox(boxId) {
+      const box = document.getElementById(boxId);
+      box.classList.add('animated');
+      setTimeout(() => {
+        box.classList.remove('animated');
+      }, 500);
+    }
+
+    // Countdown timer
+    function updateCountdown() {
+      const targetDate = new Date('January 1, 2025 00:00:00').getTime();
+      const now = new Date().getTime();
+      const timeLeft = targetDate - now;
+
+      if (timeLeft <= 0) {
+        // New Year Celebration
+        document.querySelector('.countdown').style.display = 'none';
+        document.querySelector('.celebration').style.display = 'block';
+        triggerConfetti();
+        document.getElementById('celebration-audio').play(); // Play celebration sound
+        return;
+      }
+
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      // Update countdown values
+      document.getElementById('days').innerText = String(days).padStart(2, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+
+      // Animate the seconds box
+      animateCountdownBox('seconds-box');
+    }
+
+    // Call the functions to create stars and update the countdown
+    createStars();
+    setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
+  </script>
+</body>
+</html>
